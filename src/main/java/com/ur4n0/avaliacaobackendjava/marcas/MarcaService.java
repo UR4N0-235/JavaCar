@@ -34,9 +34,9 @@ public class MarcaService implements ServiceInterface<MarcaEntity> {
     }
 
     @Override
-    public void delete(MarcaEntity entityToDelete) throws Exception{
-        MarcaEntity marca = marcaRepository.findById(entityToDelete.getId())
-            .orElseThrow(() -> new Exception("Not found marca with ID " + entityToDelete.getId()));
+    public void delete(Long id) throws Exception{
+        MarcaEntity marca = marcaRepository.findById(id)
+            .orElseThrow(() -> new Exception("Not found marca with ID " + id));
         marcaRepository.delete(marca);
     }
 

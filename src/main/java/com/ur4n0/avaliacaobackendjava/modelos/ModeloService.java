@@ -1,12 +1,10 @@
 package com.ur4n0.avaliacaobackendjava.modelos;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.ur4n0.avaliacaobackendjava.Interfaces.ServiceInterface;
-import com.ur4n0.avaliacaobackendjava.modelos.ModeloEntity;
 
 @Service
 public class ModeloService implements ServiceInterface<ModeloEntity> {
@@ -36,9 +34,9 @@ public class ModeloService implements ServiceInterface<ModeloEntity> {
     }
 
     @Override
-    public void delete(ModeloEntity entityToDelete) throws Exception{
-        ModeloEntity modelo = modeloRepository.findById(entityToDelete.getId())
-            .orElseThrow(() -> new Exception("Not found modelo with ID " + entityToDelete.getId()));
+    public void delete(Long id) throws Exception{
+        ModeloEntity modelo = modeloRepository.findById(id)
+            .orElseThrow(() -> new Exception("Not found modelo with ID " + id));
         modeloRepository.delete(modelo);
     }
 

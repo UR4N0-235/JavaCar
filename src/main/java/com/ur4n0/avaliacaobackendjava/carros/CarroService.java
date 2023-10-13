@@ -34,9 +34,9 @@ public class CarroService implements ServiceInterface<CarroEntity> {
     }
 
     @Override
-    public void delete(CarroEntity entityToDelete) throws Exception{
-        CarroEntity carro = carroRepository.findById(entityToDelete.getId())
-            .orElseThrow(() -> new Exception("Not found carro with ID " + entityToDelete.getId()));
+    public void delete(Long id) throws Exception{
+        CarroEntity carro = carroRepository.findById(id)
+            .orElseThrow(() -> new Exception("Not found carro with ID " + id));
         carroRepository.delete(carro);
     }
 
