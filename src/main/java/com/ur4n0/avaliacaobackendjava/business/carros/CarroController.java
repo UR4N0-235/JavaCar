@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.Car;
-import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.GetAllResponse;
 import com.ur4n0.avaliacaobackendjava.business.carros.dto.requestEntity.CarroDTO;
+import com.ur4n0.avaliacaobackendjava.business.carros.dto.responseToGetAll.Car;
+import com.ur4n0.avaliacaobackendjava.business.carros.dto.responseToGetAll.GetAllResponse;
 import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloService;
 import com.ur4n0.avaliacaobackendjava.core.common.ResponseErrorMensage;
 
