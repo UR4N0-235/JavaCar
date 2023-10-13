@@ -1,7 +1,6 @@
 package com.ur4n0.avaliacaobackendjava.marcas;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -21,18 +20,32 @@ public class MarcaService implements ServiceInterface<MarcaEntity> {
     }
 
     @Override
-    public Optional<MarcaEntity> getById(Long id) {
-        return marcaRepository.findById(id);
+    public MarcaEntity getById(Long id) throws Exception{
+        MarcaEntity marca = marcaRepository.findById(id)
+            .orElseThrow(() -> new Exception("Not found marca with id " + id)); 
+        return marca;
     }
 
     @Override
-    public MarcaEntity save(MarcaEntity entityToSave) {
+    public MarcaEntity create(MarcaEntity entityToSave) throws Exception {
+        if(marcaRepository.findById(entityToSave.getId()).isPresent()) 
+            throw new Exception("marca with this id already exists!");
         return marcaRepository.save(entityToSave);
     }
 
     @Override
-    public void delete(MarcaEntity entityToDelete) {
-        if(marcaRepository.findById(entityToDelete.getId()).isPresent())
-            marcaRepository.delete(entityToDelete);
+    public void delete(MarcaEntity entityToDelete) throws Exception{
+        MarcaEntity marca = marcaRepository.findById(entityToDelete.getId())
+            .orElseThrow(() -> new Exception("Not found marca with ID " + entityToDelete.getId()));
+        marcaRepository.delete(marca);
+    }
+
+    @Override
+    public MarcaEntity update(Long id, MarcaEntity entityToUpdate) throws Exception {
+        MarcaEntity marca = marcaRepository.findById(id)
+            .orElseThrow(() -> new Exception("Not found marca with ID " + id));
+
+        marca.setNome_marca(entityToUpdate.getNome_marca());
+		return marcaRepository.save(marca);
     }
 }

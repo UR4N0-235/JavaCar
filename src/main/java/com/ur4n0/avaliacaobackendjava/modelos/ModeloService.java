@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.ur4n0.avaliacaobackendjava.Interfaces.ServiceInterface;
+import com.ur4n0.avaliacaobackendjava.modelos.ModeloEntity;
 
 @Service
 public class ModeloService implements ServiceInterface<ModeloEntity> {
@@ -21,18 +22,35 @@ public class ModeloService implements ServiceInterface<ModeloEntity> {
     }
 
     @Override
-    public Optional<ModeloEntity> getById(Long id) {
-        return modeloRepository.findById(id);
+    public ModeloEntity getById(Long id) throws Exception{
+        ModeloEntity modelo = modeloRepository.findById(id)
+            .orElseThrow(() -> new Exception("Not found modelo with id " + id)); 
+        return modelo;
     }
 
     @Override
-    public ModeloEntity save(ModeloEntity entityToSave) {
+    public ModeloEntity create(ModeloEntity entityToSave) throws Exception {
+        if(modeloRepository.findById(entityToSave.getId()).isPresent()) 
+            throw new Exception("modelo with this id already exists!");
         return modeloRepository.save(entityToSave);
     }
 
     @Override
-    public void delete(ModeloEntity entityToDelete) {
-        if(modeloRepository.findById(entityToDelete.getId()).isPresent())
-            modeloRepository.delete(entityToDelete);
+    public void delete(ModeloEntity entityToDelete) throws Exception{
+        ModeloEntity modelo = modeloRepository.findById(entityToDelete.getId())
+            .orElseThrow(() -> new Exception("Not found modelo with ID " + entityToDelete.getId()));
+        modeloRepository.delete(modelo);
+    }
+
+    @Override
+    public ModeloEntity update(Long id, ModeloEntity entityToUpdate) throws Exception {
+        ModeloEntity modelo = modeloRepository.findById(id)
+            .orElseThrow(() -> new Exception("Not found modelo with ID " + id));
+
+        modelo.setMarca_id(entityToUpdate.getMarca_id());
+        modelo.setNome(entityToUpdate.getNome());
+        modelo.setValor_fipe(entityToUpdate.getValor_fipe());
+
+		return modeloRepository.save(modelo);
     }
 }
