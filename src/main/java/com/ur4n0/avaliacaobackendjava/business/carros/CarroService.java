@@ -28,8 +28,6 @@ public class CarroService implements ServiceInterface<CarroEntity> {
 
     @Override
     public CarroEntity create(CarroEntity entityToSave) throws Exception {
-        if(carroRepository.findById(entityToSave.getId()).isPresent()) 
-            throw new Exception("carro with this id already exists!");
         return carroRepository.save(entityToSave);
     }
 
