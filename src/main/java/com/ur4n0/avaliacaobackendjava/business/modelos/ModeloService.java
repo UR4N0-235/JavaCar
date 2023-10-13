@@ -28,8 +28,6 @@ public class ModeloService implements ServiceInterface<ModeloEntity> {
 
     @Override
     public ModeloEntity create(ModeloEntity entityToSave) throws Exception {
-        if(modeloRepository.findById(entityToSave.getId()).isPresent()) 
-            throw new Exception("modelo with this id already exists!");
         return modeloRepository.save(entityToSave);
     }
 

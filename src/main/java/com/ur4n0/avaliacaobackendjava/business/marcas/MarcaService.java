@@ -28,8 +28,6 @@ public class MarcaService implements ServiceInterface<MarcaEntity> {
 
     @Override
     public MarcaEntity create(MarcaEntity entityToSave) throws Exception {
-        if(marcaRepository.findById(entityToSave.getId()).isPresent()) 
-            throw new Exception("marca with this id already exists!");
         return marcaRepository.save(entityToSave);
     }
 
