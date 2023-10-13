@@ -19,7 +19,7 @@ public class CarroEntity {
     private Long id;
     
     @Column(name = "timestamp_cadastro", nullable = false)
-    private String timestamp_cadastro;
+    private Long timestamp_cadastro;
     
     @ManyToOne
     @JoinColumn(name = "modelo_id")
