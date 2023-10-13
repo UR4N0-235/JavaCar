@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ur4n0.avaliacaobackendjava.business.carros.dto.Cars;
-import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAllResponse;
+import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.Cars;
+import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.GetAllResponse;
+import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.requestEntity.CarroDTO;
+import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloEntity;
+import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloService;
 import com.ur4n0.avaliacaobackendjava.core.common.ResponseErrorMensage;
 
 @RestController
@@ -25,6 +28,9 @@ public class CarroController {
 
     @Autowired
     private CarroService carroService;
+
+    @Autowired
+    private ModeloService modeloService;
 
     @GetMapping
     public ResponseEntity<?> getAll() {
@@ -48,12 +54,22 @@ public class CarroController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody CarroEntity entity) {
+    public ResponseEntity<?> create(@RequestBody CarroDTO carroDTO) {
         try {
-            CarroEntity carro = carroService.create(entity);
+            ModeloEntity modelo = modeloService.getById(carroDTO.getModelo_id());
+            CarroEntity carro = new CarroEntity();
+            carro.setTimestamp_cadastro(System.currentTimeMillis()/1000);
+            carro.setAno(carroDTO.getAno());
+            carro.setCombustivel(carroDTO.getCombustivel());
+            carro.setCor(carroDTO.getCor());
+            carro.setModelo_id(modelo);
+            carro.setNum_portas(carroDTO.getNum_portas());
+
+            carro = carroService.create(carro); // só para recuperar o id criado.
+            
             return new ResponseEntity<>(carro, HttpStatus.CREATED);
         } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 

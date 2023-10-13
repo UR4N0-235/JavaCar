@@ -1,4 +1,4 @@
-package com.ur4n0.avaliacaobackendjava.business.carros.dto;
+package com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll;
 
 import java.util.List;
 
