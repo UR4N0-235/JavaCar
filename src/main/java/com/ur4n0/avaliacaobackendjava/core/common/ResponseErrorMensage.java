@@ -1,4 +1,4 @@
-package com.ur4n0.avaliacaobackendjava.common;
+package com.ur4n0.avaliacaobackendjava.core.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

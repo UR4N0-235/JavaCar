@@ -1,10 +1,10 @@
-package com.ur4n0.avaliacaobackendjava.marcas;
+package com.ur4n0.avaliacaobackendjava.business.marcas;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ur4n0.avaliacaobackendjava.modelos.ModeloEntity;
+import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

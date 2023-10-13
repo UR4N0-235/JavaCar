@@ -1,4 +1,4 @@
-package com.ur4n0.avaliacaobackendjava.Interfaces;
+package com.ur4n0.avaliacaobackendjava.core.interfaces;
 
 import java.util.List;
 

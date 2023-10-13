@@ -1,6 +1,6 @@
-package com.ur4n0.avaliacaobackendjava.carros;
+package com.ur4n0.avaliacaobackendjava.business.carros;
 
-import com.ur4n0.avaliacaobackendjava.modelos.ModeloEntity;
+import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

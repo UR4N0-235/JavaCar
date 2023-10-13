@@ -1,10 +1,10 @@
-package com.ur4n0.avaliacaobackendjava.carros;
+package com.ur4n0.avaliacaobackendjava.business.carros;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.ur4n0.avaliacaobackendjava.Interfaces.ServiceInterface;
+import com.ur4n0.avaliacaobackendjava.core.interfaces.ServiceInterface;
 
 @Service
 public class CarroService implements ServiceInterface<CarroEntity> {

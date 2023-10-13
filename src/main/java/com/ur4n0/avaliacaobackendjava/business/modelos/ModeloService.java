@@ -1,10 +1,10 @@
-package com.ur4n0.avaliacaobackendjava.modelos;
+package com.ur4n0.avaliacaobackendjava.business.modelos;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.ur4n0.avaliacaobackendjava.Interfaces.ServiceInterface;
+import com.ur4n0.avaliacaobackendjava.core.interfaces.ServiceInterface;
 
 @Service
 public class ModeloService implements ServiceInterface<ModeloEntity> {

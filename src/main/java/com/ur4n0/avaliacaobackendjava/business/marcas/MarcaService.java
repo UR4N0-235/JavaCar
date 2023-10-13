@@ -1,10 +1,10 @@
-package com.ur4n0.avaliacaobackendjava.marcas;
+package com.ur4n0.avaliacaobackendjava.business.marcas;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.ur4n0.avaliacaobackendjava.Interfaces.ServiceInterface;
+import com.ur4n0.avaliacaobackendjava.core.interfaces.ServiceInterface;
 
 @Service
 public class MarcaService implements ServiceInterface<MarcaEntity> {

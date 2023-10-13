@@ -1,4 +1,4 @@
-package com.ur4n0.avaliacaobackendjava.carros;
+package com.ur4n0.avaliacaobackendjava.business.carros;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
