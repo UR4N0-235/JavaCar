@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ur4n0.avaliacaobackendjava.business.marcas.MarcaService;
+import com.ur4n0.avaliacaobackendjava.business.modelos.dto.ModeloDTO;
 import com.ur4n0.avaliacaobackendjava.core.common.ResponseErrorMensage;
 
 @RestController
@@ -20,6 +22,9 @@ public class ModeloController {
 
     @Autowired
     private ModeloService modeloService;
+
+    @Autowired
+    private MarcaService marcaService;
 
     @GetMapping
     public ResponseEntity<?> getAll() {
@@ -37,9 +42,14 @@ public class ModeloController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody ModeloEntity entity) {
+    public ResponseEntity<?> create(@RequestBody ModeloDTO dto) {
         try {
-            ModeloEntity modelo = modeloService.create(entity);
+            ModeloEntity modelo = new ModeloEntity();
+            modelo.setMarca_id(marcaService.getById(dto.getMarca_id()));
+            modelo.setNome(dto.getNome());
+            modelo.setValor_fipe(dto.getValor_fipe());
+
+            modelo = modeloService.create(modelo);
             return new ResponseEntity<>(modelo, HttpStatus.CREATED);
         } catch (Exception error) {
             return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.CONFLICT);

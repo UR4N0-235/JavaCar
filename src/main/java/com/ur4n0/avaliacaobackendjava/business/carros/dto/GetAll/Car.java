@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Cars {
+public class Car {
     Long id;
     Long timestamp_cadastro;
     Long modelo_id;
@@ -18,7 +18,7 @@ public class Cars {
     String nome_modelo;
     double valor;
 
-    public Cars(CarroEntity entity) {
+    public Car(CarroEntity entity) {
         this.id = entity.getId();
         this.timestamp_cadastro = entity.getTimestamp_cadastro();
         this.modelo_id = entity.getModelo_id().getId();

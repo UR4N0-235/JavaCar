@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ur4n0.avaliacaobackendjava.business.marcas.dto.MarcaDTO;
 import com.ur4n0.avaliacaobackendjava.core.common.ResponseErrorMensage;
 
 @RestController
@@ -37,9 +38,12 @@ public class MarcaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody MarcaEntity entity) {
+    public ResponseEntity<?> create(@RequestBody MarcaDTO dto) {
         try {
-            MarcaEntity marca = marcaService.create(entity);
+            MarcaEntity marca = new MarcaEntity();
+            marca.setNome_marca(dto.getNome_marca()); 
+            
+            marca = marcaService.create(marca);
             return new ResponseEntity<>(marca, HttpStatus.CREATED);
         } catch (Exception error) {
             return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.CONFLICT);
@@ -47,9 +51,13 @@ public class MarcaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody MarcaEntity entity) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody MarcaDTO dto) {
         try {
-            MarcaEntity marca = marcaService.update(id, entity);
+
+            MarcaEntity marca = new MarcaEntity();
+            marca.setNome_marca(dto.getNome_marca());
+
+            marca = marcaService.update(id, marca);
             return new ResponseEntity<>(marca, HttpStatus.OK);
         } catch (Exception error) {
             return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.NOT_FOUND);

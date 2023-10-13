@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class GetAllResponse {
-    List<Cars> cars;
+    List<Car> cars;
 }

@@ -1,4 +1,4 @@
-package com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.requestEntity;
+package com.ur4n0.avaliacaobackendjava.business.carros.dto.requestEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

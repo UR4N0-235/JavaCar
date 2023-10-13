@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.Cars;
+import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.Car;
 import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.GetAllResponse;
-import com.ur4n0.avaliacaobackendjava.business.carros.dto.GetAll.requestEntity.CarroDTO;
-import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloEntity;
+import com.ur4n0.avaliacaobackendjava.business.carros.dto.requestEntity.CarroDTO;
 import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloService;
 import com.ur4n0.avaliacaobackendjava.core.common.ResponseErrorMensage;
 
@@ -34,10 +33,10 @@ public class CarroController {
 
     @GetMapping
     public ResponseEntity<?> getAll() {
-        List<Cars> carsDTO = new ArrayList<>();
+        List<Car> carsDTO = new ArrayList<>();
 
         carroService.getAll().forEach((carro) -> {
-            carsDTO.add(new Cars(carro));
+            carsDTO.add(new Car(carro));
         });
 
         return new ResponseEntity<>(new GetAllResponse(carsDTO), HttpStatus.OK);
@@ -56,13 +55,12 @@ public class CarroController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody CarroDTO carroDTO) {
         try {
-            ModeloEntity modelo = modeloService.getById(carroDTO.getModelo_id());
             CarroEntity carro = new CarroEntity();
             carro.setTimestamp_cadastro(System.currentTimeMillis()/1000);
             carro.setAno(carroDTO.getAno());
             carro.setCombustivel(carroDTO.getCombustivel());
             carro.setCor(carroDTO.getCor());
-            carro.setModelo_id(modelo);
+            carro.setModelo_id(modeloService.getById(carroDTO.getModelo_id()));
             carro.setNum_portas(carroDTO.getNum_portas());
 
             carro = carroService.create(carro); // só para recuperar o id criado.
