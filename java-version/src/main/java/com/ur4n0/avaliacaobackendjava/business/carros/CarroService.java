@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ur4n0.avaliacaobackendjava.core.common.errors.IdNotFoundException;
 import com.ur4n0.avaliacaobackendjava.core.interfaces.ServiceInterface;
 
 @Service
@@ -20,28 +21,28 @@ public class CarroService implements ServiceInterface<CarroEntity> {
     }
 
     @Override
-    public CarroEntity getById(Long id) throws Exception{
+    public CarroEntity getById(Long id){
         CarroEntity carro = carroRepository.findById(id)
-            .orElseThrow(() -> new Exception("Not found carro with id " + id)); 
+            .orElseThrow(() -> new IdNotFoundException("Not found carro with id " + id)); 
         return carro;
     }
 
     @Override
-    public CarroEntity create(CarroEntity entityToSave) throws Exception {
+    public CarroEntity create(CarroEntity entityToSave) {
         return carroRepository.save(entityToSave);
     }
 
     @Override
-    public void delete(Long id) throws Exception{
+    public void delete(Long id){
         CarroEntity carro = carroRepository.findById(id)
-            .orElseThrow(() -> new Exception("Not found carro with ID " + id));
+            .orElseThrow(() -> new IdNotFoundException("Not found carro with ID " + id));
         carroRepository.delete(carro);
     }
 
     @Override
-    public CarroEntity update(Long id, CarroEntity entityToUpdate) throws Exception {
+    public CarroEntity update(Long id, CarroEntity entityToUpdate) {
         CarroEntity carro = carroRepository.findById(id)
-            .orElseThrow(() -> new Exception("Not found carro with ID " + id));
+            .orElseThrow(() -> new IdNotFoundException("Not found carro with ID " + id));
 
         carro.setAno(entityToUpdate.getAno());
         carro.setCombustivel(entityToUpdate.getCombustivel());

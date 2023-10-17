@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ur4n0.avaliacaobackendjava.core.common.errors.IdNotFoundException;
 import com.ur4n0.avaliacaobackendjava.core.interfaces.ServiceInterface;
 
 @Service
@@ -20,28 +21,28 @@ public class ModeloService implements ServiceInterface<ModeloEntity> {
     }
 
     @Override
-    public ModeloEntity getById(Long id) throws Exception{
+    public ModeloEntity getById(Long id){
         ModeloEntity modelo = modeloRepository.findById(id)
-            .orElseThrow(() -> new Exception("Not found modelo with id " + id)); 
+            .orElseThrow(() -> new IdNotFoundException("Not found modelo with id " + id)); 
         return modelo;
     }
 
     @Override
-    public ModeloEntity create(ModeloEntity entityToSave) throws Exception {
+    public ModeloEntity create(ModeloEntity entityToSave) {
         return modeloRepository.save(entityToSave);
     }
 
     @Override
-    public void delete(Long id) throws Exception{
+    public void delete(Long id){
         ModeloEntity modelo = modeloRepository.findById(id)
-            .orElseThrow(() -> new Exception("Not found modelo with ID " + id));
+            .orElseThrow(() -> new IdNotFoundException("Not found modelo with ID " + id));
         modeloRepository.delete(modelo);
     }
 
     @Override
-    public ModeloEntity update(Long id, ModeloEntity entityToUpdate) throws Exception {
+    public ModeloEntity update(Long id, ModeloEntity entityToUpdate) {
         ModeloEntity modelo = modeloRepository.findById(id)
-            .orElseThrow(() -> new Exception("Not found modelo with ID " + id));
+            .orElseThrow(() -> new IdNotFoundException("Not found modelo with ID " + id));
 
         modelo.setMarca_id(entityToUpdate.getMarca_id());
         modelo.setNome(entityToUpdate.getNome());

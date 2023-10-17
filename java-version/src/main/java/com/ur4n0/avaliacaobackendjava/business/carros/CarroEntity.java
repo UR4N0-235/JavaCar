@@ -28,13 +28,13 @@ public class CarroEntity {
     private ModeloEntity modelo_id;
 
     @Column(name = "ano", nullable = false)
-    private int ano;
+    private Integer ano;
 
     @Column(name = "combustivel", nullable = false)
     private String combustivel;
 
     @Column(name = "num_portas", nullable = false)
-    private int num_portas;
+    private Integer num_portas;
 
     @Column(name = "cor", nullable = false)
     private String cor;

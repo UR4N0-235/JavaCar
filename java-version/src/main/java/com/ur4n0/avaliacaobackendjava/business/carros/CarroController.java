@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,8 @@ import com.ur4n0.avaliacaobackendjava.business.carros.dto.requestEntity.CarroDTO
 import com.ur4n0.avaliacaobackendjava.business.carros.dto.responseToGetAll.Car;
 import com.ur4n0.avaliacaobackendjava.business.carros.dto.responseToGetAll.GetAllResponse;
 import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloService;
-import com.ur4n0.avaliacaobackendjava.core.common.ResponseErrorMensage;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/carros/")
@@ -44,51 +46,43 @@ public class CarroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable(name = "id") long id) {
-        try {
-            CarroEntity carro = carroService.getById(id);
-            return new ResponseEntity<>(carro, HttpStatus.OK);
-        } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.NOT_FOUND);
-        }
+        CarroEntity carro = carroService.getById(id);
+        return new ResponseEntity<>(carro, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody CarroDTO carroDTO) {
-        try {
-            CarroEntity carro = new CarroEntity();
-            carro.setTimestamp_cadastro(System.currentTimeMillis()/1000);
-            carro.setAno(carroDTO.getAno());
-            carro.setCombustivel(carroDTO.getCombustivel());
-            carro.setCor(carroDTO.getCor());
-            carro.setModelo_id(modeloService.getById(carroDTO.getModelo_id()));
-            carro.setNum_portas(carroDTO.getNum_portas());
+        CarroEntity carro = new CarroEntity();
+        carro.setTimestamp_cadastro(System.currentTimeMillis() / 1000);
+        carro.setAno(carroDTO.getAno());
+        carro.setCombustivel(carroDTO.getCombustivel());
+        carro.setCor(carroDTO.getCor());
+        carro.setModelo_id(modeloService.getById(carroDTO.getModelo_id()));
+        carro.setNum_portas(carroDTO.getNum_portas());
 
-            carro = carroService.create(carro); // só para recuperar o id criado.
-            
-            return new ResponseEntity<>(carro, HttpStatus.CREATED);
-        } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.BAD_REQUEST);
-        }
+        carro = carroService.create(carro); // só para recuperar o id criado.
+
+        return new ResponseEntity<>(carro, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody CarroEntity entity) {
-        try {
-            CarroEntity carro = carroService.update(id, entity);
-            return new ResponseEntity<>(carro, HttpStatus.OK);
-        } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.NOT_FOUND);
-        }
+    @Validated
+    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @Valid @RequestBody CarroDTO carroDTO) {
+        CarroEntity carro = new CarroEntity();
+        carro.setAno(carroDTO.getAno());
+        carro.setCombustivel(carroDTO.getCombustivel());
+        carro.setCor(carroDTO.getCor());
+        carro.setModelo_id(modeloService.getById(carroDTO.getModelo_id()));
+        carro.setNum_portas(carroDTO.getNum_portas());
+
+        carro = carroService.update(id, carro);
+        return new ResponseEntity<>(carro, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) {
-        try {
-            carroService.delete(id);;
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.NOT_FOUND);
-        }
+        carroService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ur4n0.avaliacaobackendjava.business.marcas.MarcaService;
 import com.ur4n0.avaliacaobackendjava.business.modelos.dto.ModeloDTO;
-import com.ur4n0.avaliacaobackendjava.core.common.ResponseErrorMensage;
 
 @RestController
 @RequestMapping("/api/modelos/")
@@ -33,47 +32,31 @@ public class ModeloController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable(name = "id") long id) {
-        try {
-            ModeloEntity modelo = modeloService.getById(id);
-            return new ResponseEntity<>(modelo, HttpStatus.OK);
-        } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.NOT_FOUND);
-        }
+        ModeloEntity modelo = modeloService.getById(id);
+        return new ResponseEntity<>(modelo, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody ModeloDTO dto) {
-        try {
-            ModeloEntity modelo = new ModeloEntity();
-            modelo.setMarca_id(marcaService.getById(dto.getMarca_id()));
-            modelo.setNome(dto.getNome());
-            modelo.setValor_fipe(dto.getValor_fipe());
+        ModeloEntity modelo = new ModeloEntity();
+        modelo.setMarca_id(marcaService.getById(dto.getMarca_id()));
+        modelo.setNome(dto.getNome());
+        modelo.setValor_fipe(dto.getValor_fipe());
 
-            modelo = modeloService.create(modelo);
-            return new ResponseEntity<>(modelo, HttpStatus.CREATED);
-        } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.CONFLICT);
-        }
+        modelo = modeloService.create(modelo);
+        return new ResponseEntity<>(modelo, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody ModeloEntity entity) {
-        try {
-            ModeloEntity modelo = modeloService.update(id, entity);
-            return new ResponseEntity<>(modelo, HttpStatus.OK);
-        } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.NOT_FOUND);
-        }
+        ModeloEntity modelo = modeloService.update(id, entity);
+        return new ResponseEntity<>(modelo, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) {
-        try {
-            modeloService.delete(id);;
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception error) {
-            return new ResponseEntity<>(new ResponseErrorMensage(error.getMessage()), HttpStatus.NOT_FOUND);
-        }
+        modeloService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

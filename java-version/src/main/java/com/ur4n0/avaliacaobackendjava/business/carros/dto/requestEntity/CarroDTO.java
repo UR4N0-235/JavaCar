@@ -1,14 +1,25 @@
 package com.ur4n0.avaliacaobackendjava.business.carros.dto.requestEntity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
 public class CarroDTO {
+    @NotNull
     private Long modelo_id;
-    private int ano;
+
+    @NotNull
+    private Integer ano;
+
+    @NotBlank
     private String combustivel;
-    private int num_portas;
-    private String cor;    
+
+    @NotNull
+    private Integer num_portas;
+
+    @NotBlank
+    private String cor;
 }

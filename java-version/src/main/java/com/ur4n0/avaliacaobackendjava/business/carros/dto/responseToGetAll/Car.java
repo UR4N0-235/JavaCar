@@ -11,9 +11,9 @@ public class Car {
     Long id;
     Long timestamp_cadastro;
     Long modelo_id;
-    int ano;
+    Integer ano;
     String combustivel;
-    int num_portas;
+    Integer num_portas;
     String cor;
     String nome_modelo;
     double valor;
