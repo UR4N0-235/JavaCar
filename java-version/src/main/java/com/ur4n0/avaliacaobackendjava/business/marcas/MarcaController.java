@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ur4n0.avaliacaobackendjava.business.marcas.dto.MarcaDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/marcas/")
 public class MarcaController {
@@ -33,18 +35,18 @@ public class MarcaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody MarcaDTO dto) {
+    public ResponseEntity<?> create(@Valid @RequestBody MarcaDTO marcaDTO) {
         MarcaEntity marca = new MarcaEntity();
-        marca.setNome_marca(dto.getNome_marca());
+        marca.setNome_marca(marcaDTO.getNome_marca());
 
         marca = marcaService.create(marca);
         return new ResponseEntity<>(marca, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody MarcaDTO dto) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @Valid @RequestBody MarcaDTO marcaDTO) {
         MarcaEntity marca = new MarcaEntity();
-        marca.setNome_marca(dto.getNome_marca());
+        marca.setNome_marca(marcaDTO.getNome_marca());
 
         marca = marcaService.update(id, marca);
         return new ResponseEntity<>(marca, HttpStatus.OK);

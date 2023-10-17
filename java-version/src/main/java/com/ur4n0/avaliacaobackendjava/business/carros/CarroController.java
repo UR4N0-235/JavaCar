@@ -51,7 +51,7 @@ public class CarroController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody CarroDTO carroDTO) {
+    public ResponseEntity<?> create(@Valid @RequestBody CarroDTO carroDTO) {
         CarroEntity carro = new CarroEntity();
         carro.setTimestamp_cadastro(System.currentTimeMillis() / 1000);
         carro.setAno(carroDTO.getAno());

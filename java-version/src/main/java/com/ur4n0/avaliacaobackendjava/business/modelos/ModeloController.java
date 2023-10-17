@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ur4n0.avaliacaobackendjava.business.marcas.MarcaService;
 import com.ur4n0.avaliacaobackendjava.business.modelos.dto.ModeloDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/modelos/")
 public class ModeloController {
@@ -37,19 +39,24 @@ public class ModeloController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody ModeloDTO dto) {
+    public ResponseEntity<?> create(@Valid @RequestBody ModeloDTO modeloDTO) {
         ModeloEntity modelo = new ModeloEntity();
-        modelo.setMarca_id(marcaService.getById(dto.getMarca_id()));
-        modelo.setNome(dto.getNome());
-        modelo.setValor_fipe(dto.getValor_fipe());
+        modelo.setMarca_id(marcaService.getById(modeloDTO.getMarca_id()));
+        modelo.setNome(modeloDTO.getNome());
+        modelo.setValor_fipe(modeloDTO.getValor_fipe());
 
         modelo = modeloService.create(modelo);
         return new ResponseEntity<>(modelo, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody ModeloEntity entity) {
-        ModeloEntity modelo = modeloService.update(id, entity);
+    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @Valid @RequestBody ModeloDTO modeloDTO) {
+        ModeloEntity modelo = new ModeloEntity();
+        modelo.setMarca_id(marcaService.getById(modeloDTO.getMarca_id()));
+        modelo.setNome(modeloDTO.getNome());
+        modelo.setValor_fipe(modeloDTO.getValor_fipe());
+        
+        modeloService.update(id, modelo);
         return new ResponseEntity<>(modelo, HttpStatus.OK);
     }
 
