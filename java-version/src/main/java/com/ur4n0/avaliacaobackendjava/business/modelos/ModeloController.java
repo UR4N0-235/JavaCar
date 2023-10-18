@@ -56,7 +56,7 @@ public class ModeloController {
         modelo.setNome(modeloDTO.getNome());
         modelo.setValor_fipe(modeloDTO.getValor_fipe());
         
-        modeloService.update(id, modelo);
+        modelo = modeloService.update(id, modelo);
         return new ResponseEntity<>(modelo, HttpStatus.OK);
     }
 
