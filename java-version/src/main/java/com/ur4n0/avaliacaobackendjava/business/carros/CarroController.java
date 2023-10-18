@@ -24,7 +24,7 @@ import com.ur4n0.avaliacaobackendjava.business.modelos.ModeloService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/carros/")
+@RequestMapping({"/api/carros", "/api/carros/"})
 public class CarroController {
 
     @Autowired

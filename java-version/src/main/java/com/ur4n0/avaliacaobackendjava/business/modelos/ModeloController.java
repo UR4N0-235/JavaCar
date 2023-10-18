@@ -18,7 +18,7 @@ import com.ur4n0.avaliacaobackendjava.business.modelos.dto.ModeloDTO;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/modelos/")
+@RequestMapping({"/api/modelos", "/api/modelos/"})
 public class ModeloController {
 
     @Autowired

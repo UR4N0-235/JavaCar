@@ -17,7 +17,7 @@ import com.ur4n0.avaliacaobackendjava.business.marcas.dto.MarcaDTO;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/marcas/")
+@RequestMapping({"/api/marcas", "/api/marcas/"})
 public class MarcaController {
 
     @Autowired
